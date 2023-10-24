@@ -8,9 +8,9 @@
             aria-placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-primary" @click="search">Search</button>
           <div v-if="User.length > 0" class="card card-style">
-          <ul >
+          <ul>
             <li v-for="result in User">
-              <p>{{ result.username }}</p>
+              <router-link v-if="token !== null" :to="{ name: 'profile', params: { name: result.username, id: result.user_id } }">{{ result.username }}</router-link>
             </li>
           </ul>
         </div>
@@ -66,21 +66,19 @@ export default {
   },
   created() {
     this.token = localStorage.getItem("access_token") || null;
-
   },
   methods: {
     login() {
-      return this.$router.push({ path: '/' });
+      return this.$router.push({ path: '/login' });
     },
     logout() {
       window.localStorage.clear();
-      return this.$router.push({path: '/' });
+      return this.$router.push({path: '/login' });
     },
     faq() {
       return this.$router.push({ name: 'faq' });
     },
     search() {
-      // console.log(this.search_data)
       if(this.search_data.length==0) this.User=[];
       else{
         const formData = new FormData();
@@ -92,10 +90,8 @@ export default {
         };
         const url = `${baseURL}/api/search`;
         axios.post(url, formData, options).then((result) => {
-          this.$store.commit('setSearchedUser', result.data);
           this.User = result.data;
           console.log(result.data);
-          // this.$router.push({ name: 'Searched_users' })
         }).catch((err) => {
           console.log(err);
         })

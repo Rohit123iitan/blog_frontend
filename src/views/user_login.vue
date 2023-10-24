@@ -69,7 +69,7 @@ export default {
           localStorage.setItem('access_token', res.data[0]);
           localStorage.setItem('user_id', res.data[1]);
           console.log(res);
-          return this.$router.push({ path: '/dashboard' });
+          return this.$router.push({ path: '/' });
         }
         else {
           console.log(res);

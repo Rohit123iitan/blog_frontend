@@ -26,8 +26,8 @@
             <div>
               <img class="custom_img" src="../assets/profile_img.jpg" alt="author_img" v-show='post.user_img === ""'>
               <img :src="post.user_img" alt="author_img" v-show='post.user_img !== ""'>
-              <!-- <a :href="'/profile/' + post.username">{{ post.username }}</a> -->
-              <router-link :to="{ name: 'profile', params: { name: post.username } }">{{post.username}}</router-link>
+              <router-link v-if="token !== null" :to="{ name: 'profile', params: { name: post.username, id: post.user_id } }">{{ post.username }}</router-link>
+              <a v-else @click="login_">{{ post.username }}</a>
             </div>
             <hr>
             <div class="card-body ">
@@ -35,7 +35,7 @@
             </div>
             <img v-bind:src="post.image" alt="post_img" class="card-img-top img-fit img-fluid">
             <div>
-              <button class="custom-btn" @click="like_(post.post_id)" v-show="post.like==false">
+              <button v-if="token !== null && post.like==false" class="custom-btn" @click="like_(post.post_id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
                   <path
@@ -43,7 +43,7 @@
                 </svg>
                 Like
               </button>
-              <button class="custom-like-btn" @click="dislike_(post.post_id)" v-show="post.like==true">
+              <button v-if="token !== null && post.like==true" class="custom-like-btn" @click="dislike_(post.post_id)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
                   <path
@@ -51,7 +51,10 @@
                 </svg>
                 Like
               </button>
-              <button @click="setCurrentPostId(post.post_id)" class="float-sm-end custom-btn " data-bs-toggle="modal"
+              <button v-if="token==null" class="custom-btn " @click="login_">
+                Like
+              </button>
+              <button v-if="token !== null" @click="setCurrentPostId(post.post_id)" class="float-sm-end custom-btn " data-bs-toggle="modal"
                 data-bs-target="#create_comment">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat"
                   viewBox="0 0 16 16">
@@ -60,8 +63,11 @@
                 </svg>
                 comment
               </button>
+              <button v-else class="float-sm-end custom-btn " @click="login_">
+                comment
+              </button>
             </div>
-            <comment></comment>
+              <comment></comment>
           </div>
         </div>
       </div>
@@ -93,7 +99,8 @@ export default {
       post_no: 0,
       user: [],
       like: [],
-      key: null
+      key: null,
+      token:"",
     }
   },
   store: store,
@@ -101,6 +108,9 @@ export default {
     Navbar,
     create_blog,
     comment
+  },
+  created() {
+    this.token = localStorage.getItem("access_token") || null;
   },
   methods: {
     login_() {
@@ -164,66 +174,37 @@ export default {
       .catch(error => {
         console.log(error);
       });
-    // const postData = {
-    //   "user_id": localStorage.getItem("user_id"),
-    // };
-    // const body = postData;
-    // const options = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   }
-    // };
-    // const url = `${baseURL}/api/get_user_data`;
-    // axios.post(url, body, options).then((result) => {
-    //   this.user = result.data;
-    // }).catch((err) => {
-    //   console.log(err);
-    // })
   },
 }
 </script>
 <style>
-/* .liked {
-  background-color: green;
-  color: white;
-} */
 
 .custom_img {
   border-radius: 100%;
   width: 50px;
   height: 50px;
-  margin: 10px;
 }
-
 hr {
   margin: 0;
 }
-
 .custom-btn:hover {
   color: #000;
   text-shadow: 10px;
-  /* background-color: #f1f1f1; */
   box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
 }
-
 .custom-btn {
-  margin-top: 10px;
   padding: 10px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   color: #666;
 }
-
 .custom-like-btn:hover {
   color: white;
   text-shadow: 10px;
-  /* background-color: #f1f1f1; */
   box-shadow: 0 10px 20px -8px rgb(122, 75, 240);
 }
-
 .custom-like-btn {
-  margin-top: 10px;
   padding: 10px;
   border-radius: 5px;
   border: none;
@@ -234,28 +215,24 @@ hr {
 a {
   cursor: pointer;
 }
-
 .row {
   margin-top: 50px;
 }
-
 .img-fit {
   aspect-ratio: 16/9;
   object-fit: fill;
 }
-
 .sticky {
   position: fixed;
   top: 50px;
 }
-
 body {
   width: 100%;
   height: 100%;
   background-color: rgb(176, 214, 229);
 }
-
 button {
   border: none;
 }
+
 </style>

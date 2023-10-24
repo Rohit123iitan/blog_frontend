@@ -43,7 +43,7 @@ export default {
     name: 'create_blog',
     data(){
         return {
-            user_id:2,
+            user_id:0,
             title:"",
             content:"",
             image:null
@@ -57,6 +57,7 @@ export default {
         this.$refs.button.click();
         },
         async post_blog(){
+            this.user_id=localStorage.getItem("user_id")
             const formData = new FormData();
             formData.append('user_id', this.user_id);
             formData.append('title', this.title);

@@ -11,6 +11,7 @@ const routes = [
     children: [
       {
         path: '/login',
+        name:'login',
         component: () => import('../views/user_login.vue')
       },
       {
@@ -25,9 +26,9 @@ const routes = [
     component: () => import('../components/Dashboard.vue')
   },
   {
-    path: '/profile/:name',
+    path: '/profile/:name/:id',
     name: 'profile',
-    // props:true,
+    props:true,
     component: () => import('../components/Profile.vue')
   },
   {
