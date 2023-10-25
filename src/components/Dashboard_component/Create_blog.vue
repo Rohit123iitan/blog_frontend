@@ -32,11 +32,6 @@
 </template>
 <script>
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import jquery from 'jquery';
-import popper from 'popper.js';
-window.$ = jquery;
-window.Popper = popper;
 const baseURL = "http://localhost:8080";
 import axios from 'axios';
 export default {

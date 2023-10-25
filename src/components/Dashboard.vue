@@ -78,10 +78,6 @@
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import jquery from 'jquery';
-import popper from 'popper.js';
-window.$ = jquery;
-window.Popper = popper;
 
 import Navbar from './Dashboard_component/Navbar.vue';
 import comment from './Dashboard_component/comment.vue';

@@ -34,11 +34,6 @@
   
 <script>
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import jquery from 'jquery';
-import popper from 'popper.js';
-window.$ = jquery;
-window.Popper = popper;
 
 import Search_table from '../Search_table.vue';
 
