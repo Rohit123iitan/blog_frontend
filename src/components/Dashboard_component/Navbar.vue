@@ -39,7 +39,7 @@ import Search_table from '../Search_table.vue';
 
 import axios from 'axios';
 import store from '@/store';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://blog-backend1-ev7i.onrender.com";
 
 export default {
   name: 'Navbar',
