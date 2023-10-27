@@ -67,7 +67,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import comment from './Dashboard_component/comment.vue';
 import axios from 'axios';
 import store from '@/store';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://blog-backend1-ev7i.onrender.com";
 import follow from "@/components/Follow.vue";
 const token = localStorage.getItem('access_token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
