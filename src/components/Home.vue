@@ -59,7 +59,7 @@ import create_blog from './Dashboard_component/Create_blog.vue';
 import Navbar from './Dashboard_component/Navbar.vue';
 import comment from './Dashboard_component/comment.vue';
 import axios from 'axios';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://blog-backend1-ev7i.onrender.com";
 
 
 export default {
