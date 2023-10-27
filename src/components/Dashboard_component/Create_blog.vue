@@ -32,7 +32,7 @@
 </template>
 <script>
 import 'bootstrap';
-const baseURL = "http://localhost:8080";
+const baseURL = "https://blog-backend1-ev7i.onrender.com";
 import axios from 'axios';
 export default {
     name: 'create_blog',
